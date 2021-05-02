@@ -16,10 +16,10 @@ router.post("/usuario/alterar/:id", usuarioController.alterar);
 router.delete("/usuario/remover/:id", usuarioController.remover);
 
 // ROTAS DIETA
-router.post("/dieta/cadastrar", dietaController.cadastrar);
-router.get("/dieta/buscar/:id", dietaController.buscar);
-router.get("/dieta/listar", dietaController.listar);
-router.post("/dieta/alterar/:id", dietaController.alterar);
+router.post("/dieta/cadastrar", dietaController.cadastrarDieta);
+router.get("/dieta/buscar/:id", dietaController.buscarDieta);
+router.get("/dieta/listar", dietaController.listarDieta);
+router.post("/dieta/alterar/:id", dietaController.alterarDieta);
 router.delete("/dieta/remover/:id", dietaController.remover);
 
 // ROTAS REFEICAO

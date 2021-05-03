@@ -1,6 +1,8 @@
 import express from "express";
 import { router } from "./config/routes";
+import { mongoose } from "./config/database";
 const app = express();
+const db = mongoose;
 
 console.clear();
 

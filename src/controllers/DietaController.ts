@@ -1,17 +1,31 @@
 import { Request, Response } from "express";
 import DietaSchema from "../models/DietaSchema";
+import UsuarioSchema from "../models/UsuarioSchema";
 
 class DietaController {
 
     async cadastrarDieta(request: Request, response: Response) {
         try {
-            const novaDieta = await DietaSchema.create(request.body);
+            const { usuario_id } = request.body;
+            const usuario = await UsuarioSchema.findById(usuario_id);
+
+            const dieta_params = request.body;
+            dieta_params.usuario = usuario;
+            const novaDieta = await DietaSchema.create(dieta_params);
+            await novaDieta.populate('usuario').execPopulate();
+
+            // console.log(usuario);
+            // if (usuario !== null) {
+            //     usuario.dietas.push(novaDieta);
+            //     await usuario.save();
+            // }
             response.status(201).json({
               objeto: novaDieta,
               msg: "Dieta cadastrada com sucesso!",
               erro: false
             });
           } catch (error) {
+            console.log(error);
             response.status(400).json({
               objeto: error,
               msg: "Falha",
@@ -39,7 +53,7 @@ class DietaController {
     async remover(request: Request, response: Response) {
         try {
             const { id } = request.params;
-            await DietaSchema.deleteOne({ id : id});
+            await DietaSchema.deleteOne({ _id : id});
             response.status(200).json({
                 msg: "Dieta excluida com êxito!",
                 erro: false

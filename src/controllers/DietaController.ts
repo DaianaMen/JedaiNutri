@@ -12,13 +12,7 @@ class DietaController {
             const dieta_params = request.body;
             dieta_params.usuario = usuario;
             const novaDieta = await DietaSchema.create(dieta_params);
-            await novaDieta.populate('usuario').execPopulate();
 
-            // console.log(usuario);
-            // if (usuario !== null) {
-            //     usuario.dietas.push(novaDieta);
-            //     await usuario.save();
-            // }
             response.status(201).json({
               objeto: novaDieta,
               msg: "Dieta cadastrada com sucesso!",
